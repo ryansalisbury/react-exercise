@@ -15,11 +15,13 @@
     "@tanstack/react-query": "^5.67.1",
     "@tanstack/react-store": "^0.7.0",
     "axios": "^1.8.1",
+    "lodash": "^4.17.21",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/mui-datatables": "^4.3.12",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",

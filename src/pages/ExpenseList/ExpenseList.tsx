@@ -5,7 +5,7 @@ import MUIDataTable from "mui-datatables";
 
 const ExpenseList: React.FC = () => {
   const { data, isLoading } = useGetExpenseData();
-  const columns = useGetExpenseListColumns();
+  const columns = useGetExpenseListColumns({ data, isLoading });
 
   return (
     <Stack padding={10}>
