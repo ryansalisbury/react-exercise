@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.16.14",
+    "@mui/material": "^5.16.14",
+    "@tanstack/react-store": "^0.7.0",
+    "axios": "^1.8.1",
+    "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
