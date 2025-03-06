@@ -1,9 +1,15 @@
 import axios from "axios";
 
 export const getExpenses = async () => {
-  const response = await axios.get(
-    "https://tip-transactions.vercel.app/api/transactions?page=1"
-  );
+  // NOTE: Ideally this would be strongly typed to leverage TS type safety
+  try {
+    const response = await axios.get(
+      "https://tip-transactions.vercel.app/api/transactions?page=1"
+    );
 
-  return response.data.transactions;
+    return response.data.transactions;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
