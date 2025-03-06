@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { isUndefined, startCase } from "lodash";
 import { convertUTCToDateString } from "./useGetExpenseListColumns.utilities";
 interface Props {
-  // NOTE: Ideally this would be strongly typed to leverage TS type safety
+  // NOTE: Ideally data would be strongly typed to leverage TS type safety
   data: any;
   isLoading: boolean | undefined;
 }
