@@ -6,100 +6,60 @@ interface Props {
   data: any;
   isLoading: boolean | undefined;
 }
-const columns = [
+let columns: MUIDataTableColumn[] = [
   {
     name: "id",
     label: "ID",
-    options: { filter: true },
+    options: { filter: false },
   },
   {
     name: "date",
     label: "Date",
-    options: { filter: true },
+    options: { filter: false },
   },
   {
     name: "amount",
     label: "Amount",
-    options: { filter: true },
+    options: { filter: false },
   },
   {
     name: "merchant",
     label: "Merchant",
-    options: { filter: true },
+    options: { filter: false },
   },
   {
     name: "category",
     label: "Category",
-    options: { filter: true },
+    options: { filter: false },
   },
 ];
 
-const columnsObj: Record<string, MUIDataTableColumn> = {
-  id: {
-    name: "id",
-    label: "ID",
-    options: { filter: true },
-  },
-  date: {
-    name: "date",
-    label: "Date",
-    options: { filter: true },
-  },
-  amount: {
-    name: "amount",
-    label: "Amount",
-    options: { filter: true },
-  },
-  merchant: {
-    name: "merchant",
-    label: "Merchant",
-    options: { filter: true },
-  },
-  category: {
-    name: "category",
-    label: "Category",
-    options: { filter: true },
-  },
-};
-
 export const useGetExpenseListColumns = ({ data, isLoading }: Props) => {
-  return isUndefined(isLoading) || isLoading
-    ? useMemo(() => columns, [])
-    : useMemo(() => {
-        const dateColumnWithOverrides: MUIDataTableColumn = {
-          ...columnsObj.date,
-          options: {
-            ...columnsObj.date.options,
-            customBodyRenderLite: (dataIndex) => {
-              return convertUTCToDateString(data[dataIndex].date);
-            },
-          },
-        };
-        const amountColumnWithOverrides: MUIDataTableColumn = {
-          ...columnsObj.amount,
-          options: {
-            ...columnsObj.amount.options,
-            customBodyRenderLite: (dataIndex) => {
-              return `£${data[dataIndex].amount}`;
-            },
-          },
-        };
-        const categoryColumnWithOverrides: MUIDataTableColumn = {
-          ...columnsObj.category,
-          options: {
-            ...columnsObj.category.options,
-            customBodyRenderLite: (dataIndex) => {
-              return startCase(data[dataIndex].category);
-            },
-          },
-        };
+  return useMemo(() => {
+    if (isUndefined(isLoading) || isLoading) {
+      return columns;
+    }
 
-        return [
-          columnsObj.id,
-          dateColumnWithOverrides,
-          amountColumnWithOverrides,
-          columnsObj.merchant,
-          categoryColumnWithOverrides,
-        ];
-      }, []);
+    columns.forEach((column) => {
+      if (!isUndefined(column.options)) {
+        switch (column.name) {
+          case "date":
+            column.options.customBodyRenderLite = (dataIndex) =>
+              convertUTCToDateString(data[dataIndex].date);
+            break;
+          case "amount":
+            column.options.customBodyRenderLite = (dataIndex) =>
+              `£${data[dataIndex].amount}`;
+            break;
+          case "category":
+            column.options.customBodyRenderLite = (dataIndex) =>
+              startCase(data[dataIndex].category);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+    return columns;
+  }, [isLoading, data]);
 };
